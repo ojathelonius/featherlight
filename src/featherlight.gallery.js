@@ -88,7 +88,8 @@
 
 					self.$instance.find('.'+self.namespace+'-content')
 						.append(self.createNavigation('previous'))
-						.append(self.createNavigation('next'));
+						.append(self.createNavigation('next'))
+						.append(self.createNavigation('rotate'));
 
 					return _super(event);
 			},
@@ -132,7 +133,8 @@
 	$.extend(FeatherlightGallery.prototype, {
 		/** Additional settings for Gallery **/
 		previousIcon: '&#9664;',     /* Code that is used as previous icon */
-		nextIcon: '&#9654;',         /* Code that is used as next icon */
+		nextIcon: '&#9654;',		 /* Code that is used as next icon */
+		rotateIcon: '&#8635;',       /* Code that is used as rotate icon */
 		galleryFadeIn: 100,          /* fadeIn speed when image is loaded */
 		galleryFadeOut: 300,         /* fadeOut speed before image is loaded */
 
