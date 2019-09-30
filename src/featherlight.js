@@ -349,15 +349,15 @@
 				Does nothing if either the width or the height is not specified.
 				Called automatically on window resize.
 				Override if you want different behavior. */
-		resize: function(w, h) {
+		resize: function(w, h, reverse) {
 			if (w && h) {
 				/* Reset apparent image size first so container grows */
 				this.$content.css('width', '').css('height', '');
 				/* Calculate the worst ratio so that dimensions fit */
 				 /* Note: -1 to avoid rounding errors */
 				var ratio = Math.max(
-					w  / (this.$content.parent().width()-1),
-					h / (this.$content.parent().height()-1));
+					(reverse ? h : w) / (this.$content.parent().width()-1),
+					(reverse ? w : h) / (this.$content.parent().height()-1));
 				/* Resize content */
 				if (ratio > 1) {
 					ratio = h / Math.floor(h / ratio); /* Round ratio down so height calc works */

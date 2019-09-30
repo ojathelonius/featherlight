@@ -72,9 +72,26 @@
 			beforeOpen: function(_super, event){
 					var self = this;
 
-					self.$instance.on('next.'+self.namespace+' previous.'+self.namespace, function(event){
-						var offset = event.type === 'next' ? +1 : -1;
-						self.navigateTo(self.currentNavigation() + offset);
+					self.$instance.on('next.'+self.namespace+' previous.'+self.namespace+' rotate.'+self.namespace, function(event){
+						if(event.type === 'rotate') {
+							let parent = self.$content.parent();
+							let reverseRatio = false;
+							if(parent.hasClass('rotate-90')) {
+								parent.removeClass('rotate-90').addClass('rotate-180');
+							} else if(parent.hasClass('rotate-180')) {
+								parent.removeClass('rotate-180').addClass('rotate-270');
+								reverseRatio = true;
+							} else if(parent.hasClass('rotate-270')) {
+								parent.removeClass('rotate-270');
+							} else {
+								parent.addClass('rotate-90');
+								reverseRatio = true;
+							}
+							self.resize(self.$content.naturalWidth, self.$content.naturalHeight, reverseRatio);
+						} else {
+							var offset = event.type === 'next' ? +1 : -1;
+							self.navigateTo(self.currentNavigation() + offset);
+						}
 					});
 
 					if (swipeAwareConstructor) {
